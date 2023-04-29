@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/first"
-        app:showAsAction="ifRoom"
-        android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="Home" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cnb_unselectedColor="#666666">
+
     <item
-        android:id="@+id/second"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="두번째" />
+        android:id="@+id/mood"
+        android:icon="@drawable/home"
+        android:title="mood"
+        app:cnb_iconColor="@color/navigation_color_mood"/>
+
     <item
-        android:id="@+id/third"
-        app:showAsAction="ifRoom"
-        android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="세번째" />
+        android:id="@+id/habit_tracker"
+        android:icon="@drawable/home"
+        android:title="habit"
+        app:cnb_iconColor="@color/navigation_color_habit"/>
+
     <item
-        android:id="@+id/fourth"
-        app:showAsAction="ifRoom"
-        android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="세번째" />
+        android:id="@+id/add"
+        android:icon="@drawable/home"
+        android:title="add"
+        app:cnb_iconColor="@color/navigation_color_add"/>
+
     <item
-        android:id="@+id/fifth"
-        app:showAsAction="ifRoom"
-        android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="Profile" />
+        android:id="@+id/chart"
+        android:icon="@drawable/home"
+        android:title="chart"
+        app:cnb_iconColor="@color/navigation_color_chart"/>
+
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/profile"
+        android:title="profile"
+        app:cnb_iconColor="@color/navigation_color_profile"/>
+
 </menu>

@@ -48,39 +48,48 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.loginButton.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-
-            RetrofitBuilder.api.getUserInfo("apiTest").enqueue(object : Callback<UserInfo> {
-                override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
-                    val userInfo = response.body()
-                    if(userInfo != null){
-                        Toast.makeText(this@LoginActivity, userInfo.id, Toast.LENGTH_SHORT).show()
-                        Log.d("test", userInfo.id)
-                        Log.d("test", userInfo.password)
-                    }
-                }
-
-                override fun onFailure(call: Call<UserInfo>, t: Throwable) {
-                    Toast.makeText(this@LoginActivity, "Fail", Toast.LENGTH_SHORT).show()
-                }
-            })
+            initLogin()
         }
 
         binding.naverLoginButton.setOnClickListener {
-            naverLogin()
+            initnNaverLogin()
         }
 
         binding.kakaoLoginButton.setOnClickListener {
-            kakaoLogin()
+            initKakaoLogin()
         }
 
         binding.googleLoginButton.setOnClickListener {
-            googleLogin()
+            initGoogleLogin()
+        }
+
+        binding.signUpButton.setOnClickListener {
+            initSignUpButton()
         }
     }
 
-    private fun naverLogin(){
+    //일반 로그인
+    private fun initLogin(){
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+
+        RetrofitBuilder.api.getUserInfo("apiTest").enqueue(object : Callback<UserInfo> {
+            override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
+                val userInfo = response.body()
+                if(userInfo != null){
+                    Log.d("API test", userInfo.id)
+                    Log.d("API test", userInfo.password)
+                }
+            }
+
+            override fun onFailure(call: Call<UserInfo>, t: Throwable) {
+                Log.d("API test", "fail")
+            }
+        })
+    }
+
+    //네이버 로그인
+    private fun initnNaverLogin(){
         NaverIdLoginSDK.initialize(applicationContext,
             resources.getString(R.string.naver_client_id),
             resources.getString(R.string.naver_client_secret),
@@ -101,8 +110,6 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("Naver Login", birth)
                 Log.d("Naver Login", name)
                 Log.d("Naver Login", gender)
-
-
             }
             override fun onFailure(httpStatus: Int, message: String) {
                 val errorCode = NaverIdLoginSDK.getLastErrorCode().code
@@ -118,13 +125,13 @@ class LoginActivity : AppCompatActivity() {
         val oauthLoginCallback = object : OAuthLoginCallback {
             override fun onSuccess() {
                 NidOAuthLogin().callProfileApi(profileCallback)
-                Toast.makeText(applicationContext, "success", Toast.LENGTH_SHORT).show()
             }
             override fun onFailure(httpStatus: Int, message: String) {
-                Toast.makeText(applicationContext, "로그인 실패", Toast.LENGTH_SHORT).show()
-
                 val errorCode = NaverIdLoginSDK.getLastErrorCode().code
                 val errorDescription = NaverIdLoginSDK.getLastErrorDescription()
+                Log.d("Naver Login", errorCode)
+                Log.d("Naver Login",  errorDescription!!)
+
             }
             override fun onError(errorCode: Int, message: String) {
                 onFailure(errorCode, message)
@@ -133,14 +140,15 @@ class LoginActivity : AppCompatActivity() {
         NaverIdLoginSDK.authenticate(this@LoginActivity, oauthLoginCallback)
     }
 
-    private fun kakaoLogin(){
+    //카카오 로그인
+    private fun initKakaoLogin(){
         KakaoSdk.init(this@LoginActivity, getString(R.string.kakao_native_key))
 
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
-                Log.e("LOGIN", "카카오계정으로 로그인 실패", error)
+                Log.e("Kakao Login", "카카오계정으로 로그인 실패", error)
             } else if (token != null) {
-                Log.i("LOGIN", "카카오계정으로 로그인 성공 ${token.accessToken}")
+                Log.i("Kakao Login", "카카오계정으로 로그인 성공 ${token.accessToken}")
             }
         }
 
@@ -148,7 +156,7 @@ class LoginActivity : AppCompatActivity() {
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(this@LoginActivity)) {
             UserApiClient.instance.loginWithKakaoTalk(this@LoginActivity) { token, error ->
                 if (error != null) {
-                    Log.e("LOGIN", "카카오톡으로 로그인 실패", error)
+                    Log.e("Kakao Login", "카카오톡으로 로그인 실패", error)
 
                     // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
                     // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
@@ -170,6 +178,18 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    //구글 로그인
+    private fun initGoogleLogin(){
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        val signIntent: Intent = mGoogleSignInClient!!.signInIntent
+        googleLoginLauncher.launch(signIntent)
+    }
+
+    //구글 로그인 계정 정보 받아오기
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
@@ -183,17 +203,12 @@ class LoginActivity : AppCompatActivity() {
             Log.d("Google Login", account.email!!)
             Log.d("Google Login", account.photoUrl.toString())
         } catch (e: ApiException){
-            Log.e("Google account","signInResult:failed Code = " + e.statusCode)
+            Log.e("Google Login","signInResult:failed Code = " + e.statusCode)
         }
     }
 
-    private fun googleLogin(){
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        val signIntent: Intent = mGoogleSignInClient!!.signInIntent
-        googleLoginLauncher.launch(signIntent)
+    private fun initSignUpButton(){
+        val intent = Intent(this, SignUpActivity::class.java)
+        startActivity(intent)
     }
 }

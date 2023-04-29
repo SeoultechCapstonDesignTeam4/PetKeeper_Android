@@ -7,18 +7,18 @@
     tools:context=".RegisterActivity">
 
     <TextView
-        android:id="@+id/title_text"
+        android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="50dp"
-        android:text="당신의 강아지를 소개해주세요!"
-        android:fontFamily="@font/poppins_extra_bold"
+        android:text="Introduce Your Dog!"
+        android:fontFamily="@font/poppins_bold"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textSize="20sp"/>
+        android:textSize="25sp"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/dog_image"
@@ -30,7 +30,7 @@
         app:civ_border_width="3dp"
         app:civ_border_color="#000000"
         android:src="@drawable/logo"
-        app:layout_constraintTop_toBottomOf="@+id/title_text"
+        app:layout_constraintTop_toBottomOf="@+id/titleText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="30dp"/>
@@ -39,25 +39,29 @@
         android:id="@+id/add_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleText"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="220dp"
-        android:layout_marginEnd="130dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="110dp"
         android:background="@drawable/add_button"/>
 
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="350dp"
         android:layout_height="45dp"
-        app:layout_constraintTop_toBottomOf="@id/dog_image"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/edittext_bg"
         android:fontFamily="@font/poppins_regular"
         android:hint="Name"
+        android:inputType="text"
         android:padding="10dp"
-        android:background="@drawable/edittext_bg"
+        android:gravity="center_vertical"
         android:textSize="15sp"
-        android:layout_marginTop="50dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dog_image" />
+
     <Spinner
         android:id="@+id/breed_select"
         android:layout_width="350dp"
@@ -116,12 +120,15 @@
         android:background="@drawable/male_icon"/>
 
     <Button
+        android:id="@+id/registerButton"
         android:layout_width="350dp"
         android:layout_height="55dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="40dp"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="#FFFFFF"
         android:text="REGISTER"
         android:backgroundTint="#F2796B"/>
 

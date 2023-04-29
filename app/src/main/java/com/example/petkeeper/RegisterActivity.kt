@@ -29,6 +29,11 @@ class RegisterActivity : AppCompatActivity() {
         binding.addButton.setOnClickListener {
             initAddPhoto()
         }
+
+        binding.registerButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     @Deprecated("Deprecated in Java")

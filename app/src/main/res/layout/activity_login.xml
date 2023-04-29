@@ -8,7 +8,7 @@
     android:background="#FBF6C7">
 
     <TextView
-        android:id="@+id/TitleText"
+        android:id="@+id/loginText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
@@ -24,21 +24,35 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/login_icon"
-        app:layout_constraintStart_toEndOf="@+id/TitleText"
+        app:layout_constraintStart_toEndOf="@+id/loginText"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/logo_image"
         android:layout_marginStart="5dp"/>
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pet Keeper"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_extra_bold"
+        android:textSize="35sp"
+        app:layout_constraintTop_toBottomOf="@+id/loginText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"/>
 
 
     <ImageView
-        android:id="@+id/logo_image"
+        android:id="@+id/logoImage"
         android:layout_width="170dp"
         android:layout_height="170dp"
-        app:layout_constraintTop_toBottomOf="@id/TitleText"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/editEmail"
         android:src="@drawable/logo"/>
 
 
@@ -46,7 +60,7 @@
         android:id="@+id/editEmail"
         android:layout_width="350dp"
         android:layout_height="45dp"
-        app:layout_constraintTop_toBottomOf="@id/logo_image"
+        app:layout_constraintTop_toBottomOf="@id/logoImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="10dp"
@@ -54,8 +68,7 @@
         android:fontFamily="@font/poppins_regular"
         android:hint="Enter E-mail"
         android:background="@drawable/edittext_bg"
-        android:inputType="textMultiLine|textNoSuggestions"
-        android:layout_marginTop="20dp"/>
+        android:inputType="textMultiLine|textNoSuggestions"/>
 
     <EditText
         android:id="@+id/editPassword"
@@ -73,63 +86,61 @@
         android:inputType="textMultiLine|textNoSuggestions|textPassword"/>
 
     <Button
-        android:id="@+id/search_id"
+        android:id="@+id/searchIdButton"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:text="Forgot E-mail?"
         android:textColor="@color/black"
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@+id/editPassword"
-        app:layout_constraintBottom_toTopOf="@+id/login_button"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toEndOf="@id/loginButton"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/poppins_bold"
         android:background="@android:color/transparent"/>
 
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/loginButton"
         android:layout_width="350dp"
-        android:layout_height="55dp"
+        android:layout_height="43dp"
         android:backgroundTint="#F2796B"
-        android:text="LOGIN"
+        android:background="@drawable/round_button"
+        android:textAllCaps="false"
+        android:text="Login"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/search_id"
+        app:layout_constraintTop_toBottomOf="@id/searchIdButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/signup_layout"
+        app:layout_constraintBottom_toTopOf="@+id/signupLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"/>
 
     <LinearLayout
-        android:id="@+id/signup_layout"
+        android:id="@+id/signupLayout"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/login_button"
-        app:layout_constraintBottom_toTopOf="@+id/naver_login_button"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        app:layout_constraintBottom_toTopOf="@+id/naverLoginButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_gravity="right">
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        android:gravity="center_horizontal">
 
         <TextView
-            android:id="@+id/create_account_text"
+            android:id="@+id/subText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="You Don’t have an account?"
+            android:layout_height="30dp"
+            android:text="You don’t have an account?"
+            android:gravity="center_vertical"
             android:fontFamily="@font/poppins_regular"
             app:layout_constraintEnd_toStartOf="@+id/create_account"/>
 
         <Button
-            android:id="@+id/create_account"
+            android:id="@+id/signUpButton"
             android:layout_width="70dp"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
             android:text="Sign up"
             android:textStyle="bold"
             android:textAllCaps="false"
@@ -142,45 +153,51 @@
 
 
     <Button
-        android:id="@+id/naver_login_button"
+        android:id="@+id/naverLoginButton"
         android:layout_width="350dp"
-        android:layout_height="55dp"
+        android:layout_height="43dp"
         android:backgroundTint="#5FC43A"
-        android:text="LOGIN WITH NAVER"
+        android:textAllCaps="false"
+        android:text="Login with Naver"
+        android:background="@drawable/round_button"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/signup_layout"
+        app:layout_constraintTop_toBottomOf="@id/signupLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:drawableStart="@drawable/naver_logo"
+        android:drawableStart="@drawable/naver"
         android:layout_marginBottom="100dp"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="25dp"/>
 
     <Button
-        android:id="@+id/kakao_login_button"
+        android:id="@+id/kakaoLoginButton"
         android:layout_width="350dp"
-        android:layout_height="55dp"
+        android:layout_height="43dp"
         android:backgroundTint="#FEE500"
-        android:text="LOGIN WITH KAKAO"
+        android:textAllCaps="false"
+        android:text="Login with Kakao"
+        android:background="@drawable/round_button"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/naver_login_button"
+        app:layout_constraintTop_toBottomOf="@id/naverLoginButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:drawableStart="@drawable/kakao_logo"
-        android:layout_marginBottom="50dp"/>
+        android:drawableStart="@drawable/kakao"
+        android:layout_marginTop="10dp"/>
 
     <Button
-        android:id="@+id/google_login_button"
+        android:id="@+id/googleLoginButton"
         android:layout_width="350dp"
-        android:layout_height="55dp"
+        android:layout_height="43dp"
         android:backgroundTint="#FFFFFF"
-        android:text="LOGIN WITH GOOGLE"
+        android:textAllCaps="false"
+        android:text="Login with Google"
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/kakao_login_button"
+        app:layout_constraintTop_toBottomOf="@id/kakaoLoginButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:drawableStart="@drawable/google_logo"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/google"
+        android:background="@drawable/round_button"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

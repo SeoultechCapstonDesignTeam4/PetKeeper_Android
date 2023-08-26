@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.ConstraintLayout
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:padding="20dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -33,9 +32,8 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/userName"
@@ -48,7 +46,6 @@
             app:icon_size="25dp"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:padding="3dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image"
             app:anim_scale_factor="1"
@@ -62,27 +59,16 @@
             app:layout_constraintTop_toBottomOf="@+id/image"
             app:layout_constraintTop_toTopOf="@+id/likeButton"
             android:background="@drawable/comment"
-            android:layout_marginStart="7dp"/>
+            android:layout_marginLeft="10dp"/>
 
         <TextView
-            android:id="@+id/comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/likeButton"
-            android:layout_marginTop="10dp"
-            android:text="댓글 3개 모두 보기"/>
-
-        <EditText
-            android:id="@+id/writeComment"
-            android:layout_width="0dp"
+            android:id="@+id/text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/comment"
+            app:layout_constraintTop_toBottomOf="@+id/likeButton"
             android:layout_marginTop="10dp"
-            android:background="@null"
-            android:textSize="14sp"
-            android:hint="댓글을 입력하세요"/>
+            android:text="test"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

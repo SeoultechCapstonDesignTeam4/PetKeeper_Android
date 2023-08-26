@@ -28,7 +28,7 @@ class CommunityFragment : BindingFragment<FragmentCommunityBinding>(R.layout.fra
         super.onCreate(savedInstanceState)
         pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
             if(it != null) {
-                dialog.closeDialog()
+//                dialog.closeDialog()
             }else {
                 Log.d("test", "사진 선택 안됨")
             }
@@ -93,6 +93,4 @@ class CommunityFragment : BindingFragment<FragmentCommunityBinding>(R.layout.fra
             .create()
             .show()
     }
-
-
 }

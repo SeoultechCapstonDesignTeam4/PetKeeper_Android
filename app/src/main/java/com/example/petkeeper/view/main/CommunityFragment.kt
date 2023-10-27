@@ -98,10 +98,10 @@ class CommunityFragment : BindingFragment<FragmentCommunityBinding>(R.layout.fra
 
 
     private fun getAllPosts() {
-
         RetrofitBuilder.api.getAllPost().enqueue(object: Callback<CommunityResponse>{
             override fun onResponse(call: Call<CommunityResponse>, response: Response<CommunityResponse>) {
                 var data = response.body()?.data!!
+                Log.d("community test", data.toString())
                 data.forEach { post ->
                     post.CommentsCount = post.p_post_comments.size
                     post.LikesCount = post.p_post_likes.size
@@ -111,7 +111,7 @@ class CommunityFragment : BindingFragment<FragmentCommunityBinding>(R.layout.fra
                     PostList(
                         POST_ID = post.POST_ID,
                         POSTED_USER_ID = post.USER_ID,
-                        POSTED_USER_IMAGE = post.USER.USER_IMAGE ?: "",
+                        POSTED_USER_PET_IMAGE = post.USER.p_pets[0].PET_IMAGE ?: "",
                         POSTED_USER_EMAIL = post.USER.USER_EMAIL ?: "",
                         POST_IMAGE = post.POST_IMAGE ?: "",
                         POST_CONTENT = post.POST_CONTENT?:"",
@@ -132,7 +132,7 @@ class CommunityFragment : BindingFragment<FragmentCommunityBinding>(R.layout.fra
                 for(i in postDetailsList){
                     item.add(Data(
                         i.POST_ID,
-                        i.POSTED_USER_IMAGE,
+                        i.POSTED_USER_PET_IMAGE,
                         i.POSTED_USER_EMAIL,
                         i.POST_CONTENT,
                         i.POST_IMAGE,
@@ -142,9 +142,8 @@ class CommunityFragment : BindingFragment<FragmentCommunityBinding>(R.layout.fra
                     ))
                 }
 
-                val adapter = CommunityAdapter(item)
+                val adapter = CommunityAdapter(requireContext(), item)
                 recyclerView?.adapter = adapter
-
             }
 
             override fun onFailure(call: Call<CommunityResponse>, t: Throwable) {
@@ -158,5 +157,4 @@ class CommunityFragment : BindingFragment<FragmentCommunityBinding>(R.layout.fra
         val currentUserId = App.preferences.userId
         return post.p_post_likes.any { it.USER_ID == currentUserId }
     }
-
 }

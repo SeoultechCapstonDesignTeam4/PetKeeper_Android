@@ -3,12 +3,14 @@ package com.example.petkeeper.util.api
 import com.example.petkeeper.model.CommunityResponse
 import com.example.petkeeper.model.HospitalResponse
 import com.example.petkeeper.model.LoginResponse
+import com.example.petkeeper.model.UpdatePetBody
 import com.example.petkeeper.model.User
 import com.example.petkeeper.model.UserResponse
 import com.example.petkeeper.util.App
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -33,7 +35,6 @@ interface RetrofitService{
         @Query("Y") y: String
     ): Call<HospitalResponse>
 
-
     //로그아웃 Todo-API 날리고 SharedPreference 날리기
     @GET("/user/logout")
     fun userLogOut(
@@ -41,17 +42,15 @@ interface RetrofitService{
     ): Call <JsonObject>
 
     //회원 정보 수정 Todo-SharedPreference 날리고 token, USER 다시 받기
-    @Multipart
     @FormUrlEncoded
     @PUT("/user/{user_id}")
     fun updateUser(
-        @Header("Authorization") token: String? = App.preferences.token,
+        @Header("Authorization") token: String? = "Bearer ${App.preferences.token}",
         //Todo-USER_ID 값 같이 보내기
         @Path("user_id") id: String? = App.preferences.userId.toString(),
-        @Field("USER_PASSWORD") USER_PASSWORD: String,
-        @Field("USER_PHONE") USER_PHONE: String,
-        @Field("USER_IMAGE") USER_IMAGE: String,
-        @Part image: MultipartBody.Part
+        @Field("USER_EMAIL") USER_EMAIL: String?,
+        @Field("USER_PASSWORD") USER_PASSWORD: String?,
+        @Field("USER_PHONE") USER_PHONE: String?,
     ): Call<JsonObject>
 
     //회원 정보 삭제
@@ -98,7 +97,7 @@ interface RetrofitService{
     @FormUrlEncoded
     @POST("/pet")
     fun postPetData(
-        @Header("Authorization") token: String,
+        @Header("Authorization") token: String = "Bearer ${App.preferences.token}",
         @Field("PET_NAME") PET_NAME: String,
         @Field ("PET_KIND") PET_KIND: String,
         @Field ("PET_GENDER") PET_GENDER: String,
@@ -107,15 +106,11 @@ interface RetrofitService{
 
     //  펫 정보 수정 Todo-SharedPreference 날리고 token, USER 다시 받기
     @Multipart
-    @FormUrlEncoded
     @PUT("/pet/{pet_id}")
     fun updatePet(
         @Header("Authorization") token: String = "Bearer ${App.preferences.token}",
         @Path("pet_id") id: String? = App.preferences.Pet().id,
-        @Field("PET_NAME") PET_NAME: String,
-        @Field("PET_KIND") PET_KIND: String,
-        @Field("PET_BIRTHDATE") PET_BIRTHDATE: String,
-        @Part image: MultipartBody.Part
+        @PartMap pet: HashMap<String, RequestBody>
     ):Call<JsonObject>
 
     //  펫 삭제

@@ -1,4 +1,5 @@
 package com.example.petkeeper.model
+
 data class CommunityResponse(
     val data: List<Post>
 )
@@ -21,7 +22,7 @@ data class Post(
 data class PostList(
     val POST_ID: Int,
     val POSTED_USER_ID: Int,
-    val POSTED_USER_IMAGE: String,
+    val POSTED_USER_PET_IMAGE: String,
     val POSTED_USER_EMAIL: String,
     val POST_CONTENT: String,
     val POST_IMAGE: String,
@@ -35,7 +36,14 @@ data class PostList(
 data class UserInfo(
     val USER_IMAGE: String,
     val USER_EMAIL: String,
-    val USER_NAME: String? = null
+    val USER_NAME: String? = null,
+    val p_pets: List<USER_Pet>
+)
+
+data class USER_Pet(
+    val PET_ID: Int,
+    val PET_NAME: String,
+    val PET_IMAGE: String
 )
 
 data class Like(

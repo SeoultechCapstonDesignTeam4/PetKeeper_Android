@@ -45,12 +45,13 @@ class DetailDialog(context : AppCompatActivity, private val viewModel: TestViewM
         }
 
         binding.confirmButton.setOnClickListener {
-            Log.d("testtt", App.preferences.Pet().id.toString())
+            Log.d("testtt weight test", viewModel.weight.value.toString())
             RetrofitBuilder.api.postWeight(PET_WEIGHT=viewModel.weight.value.toString(), PET_WEIGHT_DATE = binding.titleText.text.toString()).enqueue(object :
                 Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if(response.isSuccessful){
                         Log.d("testtt", response.body().toString())
+                        dialog.dismiss()
                     }else{
                         Log.d("testtt", response.body().toString())
                     }

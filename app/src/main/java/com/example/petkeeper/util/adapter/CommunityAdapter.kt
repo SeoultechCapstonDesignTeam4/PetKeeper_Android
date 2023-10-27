@@ -1,5 +1,6 @@
 package com.example.petkeeper.util.adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +9,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.petkeeper.R
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.like.LikeButton
 
 data class Data(
@@ -24,7 +27,11 @@ data class Data(
     var IsLikedByCurrentUser: Boolean = false
 )
 
-class CommunityAdapter(private val items: ArrayList<Data>): RecyclerView.Adapter<CommunityAdapter.ViewHolder>() {
+class CommunityAdapter(private val context: Context, private val items: ArrayList<Data>): RecyclerView.Adapter<CommunityAdapter.ViewHolder>() {
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.bind(item)
@@ -49,7 +56,23 @@ class CommunityAdapter(private val items: ArrayList<Data>): RecyclerView.Adapter
 //        val LIKE_COUNT = view.findViewById<TextView>(R.id.likeCount)
         val POST_CONTENT = view.findViewById<TextView>(R.id.content)
         val likeButton = view.findViewById<LikeButton>(R.id.likeButton)
+        val commentButton = view.findViewById<TextView>(R.id.comment)
 
+        init {
+            commentButton.setOnClickListener {
+                Log.d("testtt", "dialog")
+                val bottomSheetView = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_dialog, null)
+                val bottomSheetDialog = BottomSheetDialog(context)
+
+                bottomSheetDialog.setContentView(bottomSheetView)
+                bottomSheetDialog.show()
+//                val position = adapterPosition
+//                if (position != RecyclerView.NO_POSITION) {
+////                    val data = dataList[position]
+//
+//                }
+            }
+        }
 
         fun bind(item: Data) {
             POSTED_USER_EMAIL.text = item.POSTED_USER_EMAIL

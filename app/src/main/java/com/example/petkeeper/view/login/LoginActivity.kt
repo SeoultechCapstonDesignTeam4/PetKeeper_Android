@@ -40,6 +40,8 @@ import com.navercorp.nid.profile.data.NidProfileResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import com.kakao.sdk.common.model.AuthErrorCause.*
+import com.kakao.sdk.user.UserApi
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private var mGoogleSignInClient : GoogleSignInClient? = null
@@ -92,6 +94,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 if(response.raw().code==200){
                     preferences.token = responseData.token
                     preferences.userId = responseData.USER.USER_ID
+                    preferences.Pet().id = responseData.USER.p_pets[0].PET_ID.toString()
+                    Log.d("testtt", responseData.USER.p_pets[0].PET_ID.toString())
                     intent =
                         if(responseData.USER.p_pets.isEmpty()){
                             Intent(this@LoginActivity, RegisterActivity::class.java)
@@ -106,6 +110,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             }
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 Log.d("Post Login Data", "Login fail")
+                Log.d("Post Login Data", t.message.toString())
             }
         })
     }
@@ -175,6 +180,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             }
         }
 
+
+
         // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(this@LoginActivity)) {
             UserApiClient.instance.loginWithKakaoTalk(this@LoginActivity) { token, error ->
@@ -191,6 +198,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                     UserApiClient.instance.loginWithKakaoAccount(this@LoginActivity, callback = callback)
                 } else if (token != null) {
                     Log.i("Kakao Login", "카카오 로그인 성공 ${token.accessToken}")
+
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                     finish()
